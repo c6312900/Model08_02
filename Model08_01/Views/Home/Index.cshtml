@@ -1,0 +1,53 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div> 
+        @Html.ActionLink("refresh", "HelloWord", "Home")
+        <hr/>
+        @Html.Action("HelloWord", "Home")
+        <hr />
+        Server Time:@DateTime.Now
+        <div id="divMessage" style="background-color:yellow">xx</div>
+        @Ajax.ActionLink("Ajax HelloWorld", "HelloWord", "Home",new AjaxOptions
+        {
+         HttpMethod="GET",
+         UpdateTargetId= "divMessage",
+         InsertionMode=InsertionMode.Replace
+        })
+        <hr/>
+        @Ajax.ActionLink("Ajax HelloWorld", "HelloWord2", "Home",
+       new {username="Marry" },
+       new AjaxOptions
+       {
+           HttpMethod = "GET",
+           UpdateTargetId = "divMessage",
+           InsertionMode = InsertionMode.InsertAfter
+       })
+        <hr/>
+        @using (Ajax.BeginForm("HelloWord2", "Home",
+            new AjaxOptions
+            {
+                HttpMethod = "GET",
+                UpdateTargetId = "divMessage",
+                InsertionMode = InsertionMode.Replace
+            }))
+        {
+            <input type="text" name="username" />
+            <input type="submit" />
+        }
+        <hr />
+    </div>
+    <script src="~/Scripts/jquery-2.1.4.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+</body>
+</html>
